@@ -14,5 +14,10 @@ public class TeamRepositoryAdapter implements TeamRepository {
     public Team save(Team t) { return TeamMapper.toDomain(jpa.save(TeamMapper.toEntity(t))); }
     public Optional<Team> findById(Long id) { return jpa.findById(id).map(TeamMapper::toDomain); }
     public List<Team> findAll() { return jpa.findAll().stream().map(TeamMapper::toDomain).toList(); }
-    public boolean existsByNameIgnoringCaseAndOuterSpaces(String name) { return jpa.existsByNormalizedName(TeamMapper.normalize(name)); }
+    public boolean existsByNameIgnoringCaseAndOuterSpaces(String name) {
+        if (name == null) {
+            return false;
+        }
+        return jpa.existsByNormalizedName(TeamMapper.normalize(name));
+    }
 }
