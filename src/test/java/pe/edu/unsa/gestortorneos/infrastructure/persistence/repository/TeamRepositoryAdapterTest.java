@@ -117,4 +117,14 @@ class TeamRepositoryAdapterTest {
         // Act + Assert
         assertThrows(DataIntegrityViolationException.class, () -> repository.save(duplicate));
     }
+
+    @Test
+    @DisplayName("R10 exists: nombre nulo retorna false sin lanzar excepcion")
+    void r10_exists_nombreNulo_retornaFalse() {
+        // Arrange (sin datos)
+        // Act
+        boolean exists = repository.existsByNameIgnoringCaseAndOuterSpaces(null);
+        // Assert
+        assertFalse(exists);
+    }
 }
